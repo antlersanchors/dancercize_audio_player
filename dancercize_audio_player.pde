@@ -5,19 +5,18 @@ Minim minim;
 
 ArrayList<AudioPlayer> players = new ArrayList<AudioPlayer>();
 
-AudioPlayer waltz;
-AudioPlayer rumba;
-AudioPlayer samba;
-AudioPlayer swing;
+// AudioPlayer waltz;
+// AudioPlayer rumba;
+// AudioPlayer samba;
+// AudioPlayer swing;
 
 
 void setup() {
   minim = new Minim(this);
-
-  players.add(waltz);
-  players.add(rumba);
-  players.add(samba);
-  players.add(swing);
+  players.add(new AudioPlayer waltz);
+  players.add(new AudioPlayer rumba);
+  players.add(new AudioPlayer samba);
+  players.add(new AudioPlayer swing);
 
   waltz = minim.loadFile("waltz.mp3", 2048);
   rumba = minim.loadFile("rumba.mp3", 2048);
@@ -36,15 +35,18 @@ void draw() {
 void keyPressed() {
 	int k = key;
 
-	for (int i=0; i < players.size(); i++ ) {
-		AudioPlayer p = players.get(i);
-		if (p.isPlaying()){
-			p.pause();
-			p.rewind();
-		}
-	}
+	// for (int i=0; i < players.size(); i++ ) {
+	// 	AudioPlayer p = players.get(i);
+
+	// 	if (p.isPlaying()){
+	// 		p.close();
+	// 		minim.stop();
+	// 		super.stop();
+	// 	}
+	// }
 
 	AudioPlayer playNow = players.get(k-1);
-	playNow.loop();
+	playNow.rewind();
+	playNow.play();
  
 }
