@@ -35,5 +35,16 @@ void draw() {
 
 void keyPressed() {
 	int k = key;
+
+	for (int i=0; i < players.size(); i++ ) {
+		AudioPlayer p = players.get(i);
+		if (p.isPlaying()){
+			p.pause();
+			p.rewind();
+		}
+	}
+
+	AudioPlayer playNow = players.get(k-1);
+	playNow.loop();
  
 }
