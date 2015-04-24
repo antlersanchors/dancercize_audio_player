@@ -24,23 +24,22 @@ void draw() {
 }
 
 void keyPressed() {
-	int k = key;
 
 	// player.close();
 	// minim.stop();
 	// super.stop();
 
-	if (key == 1) {
+	if (key == '1') {
 		
-		waltz.play();
+		waltz.loop();
 	}
-	if (key == 2) {
+	if (key == '2') {
 		rumba.play();
 	}
-	if (key == 3) {
+	if (key == '3') {
 		samba.play();
 	}
-	if (key == 4) {
+	if (key == '4') {
 		swing.play();
 	}
 }
