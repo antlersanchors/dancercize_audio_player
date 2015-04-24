@@ -2,6 +2,8 @@ import ddf.minim.*;
 import ddf.minim.ugens.*;
 
 Minim minim;
+SoundWarper soundWarp;
+BitCrush bitCrush;
 
 AudioPlayer waltz;
 AudioPlayer rumba;
@@ -10,8 +12,31 @@ AudioPlayer swing;
 
 AudioPlayer player;
 
+class SoundWarper implements AudioListener {
+  private float[] left;
+  private float[] right;
+  
+  SoundWarper()
+  {
+    left = null; 
+    right = null;
+  }
+  
+  synchronized void samples(float[] samp)
+  {
+    left = samp;
+  }
+  
+  synchronized void samples(float[] sampL, float[] sampR)
+  {
+    left = sampL;
+    right = sampR;
+  }
+};
+
 void setup() {
   minim = new Minim(this);
+  soundWarp = new SoundWarper();
 
   waltz = minim.loadFile("waltz.mp3", 2048);
   rumba = minim.loadFile("rumba.mp3", 2048);
@@ -19,6 +44,9 @@ void setup() {
   swing = minim.loadFile("swing.mp3", 2048);
   
 }
+
+
+
 
 void draw() {
 	size(512, 512);
@@ -35,6 +63,7 @@ void keyPressed() {
 	if (key == '1') {
 		
 		waltz.loop();
+		waltz.addListener(soundWarp);
 	}
 	if (key == '2') {
 		rumba.loop();

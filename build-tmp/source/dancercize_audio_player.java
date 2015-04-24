@@ -21,6 +21,7 @@ public class dancercize_audio_player extends PApplet {
 
 
 Minim minim;
+SoundWarper soundWarp;
 
 AudioPlayer waltz;
 AudioPlayer rumba;
@@ -29,8 +30,31 @@ AudioPlayer swing;
 
 AudioPlayer player;
 
+class SoundWarper implements AudioListener {
+  private float[] left;
+  private float[] right;
+  
+  SoundWarper()
+  {
+    left = null; 
+    right = null;
+  }
+  
+  public synchronized void samples(float[] samp)
+  {
+    left = samp;
+  }
+  
+  public synchronized void samples(float[] sampL, float[] sampR)
+  {
+    left = sampL;
+    right = sampR;
+  }
+};
+
 public void setup() {
   minim = new Minim(this);
+  soundWarp = new SoundWarper();
 
   waltz = minim.loadFile("waltz.mp3", 2048);
   rumba = minim.loadFile("rumba.mp3", 2048);
@@ -38,6 +62,9 @@ public void setup() {
   swing = minim.loadFile("swing.mp3", 2048);
   
 }
+
+
+
 
 public void draw() {
 	size(512, 512);
@@ -54,6 +81,7 @@ public void keyPressed() {
 	if (key == '1') {
 		
 		waltz.loop();
+		waltz.addListener(soundWarp);
 	}
 	if (key == '2') {
 		rumba.loop();
