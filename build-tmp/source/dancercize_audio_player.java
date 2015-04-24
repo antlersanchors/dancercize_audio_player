@@ -4,7 +4,6 @@ import processing.event.*;
 import processing.opengl.*; 
 
 import ddf.minim.*; 
-import ddf.minim.ugens.*; 
 
 import java.util.HashMap; 
 import java.util.ArrayList; 
@@ -18,11 +17,11 @@ import java.io.IOException;
 public class dancercize_audio_player extends PApplet {
 
 
-
+// import ddf.minim.ugens.*;
 
 Minim minim;
 
-ArrayList<AudioPlayer> players = new ArrayList<AudioPlayer>();
+// ArrayList<AudioPlayer> players = new ArrayList<AudioPlayer>();
 
 AudioPlayer waltz;
 AudioPlayer rumba;
@@ -33,10 +32,10 @@ AudioPlayer swing;
 public void setup() {
   minim = new Minim(this);
 
-  players.add(waltz);
-  players.add(rumba);
-  players.add(samba);
-  players.add(swing);
+  // players.add(waltz);
+  // players.add(rumba);
+  // players.add(samba);
+  // players.add(swing);
 
   waltz = minim.loadFile("waltz.mp3", 2048);
   rumba = minim.loadFile("rumba.mp3", 2048);
@@ -48,23 +47,27 @@ public void setup() {
 public void draw() {
 	size(512, 512);
 
-	println(players.size());
+	// println(players.size());
 	
 }
 
 public void keyPressed() {
-	int k = key;
+	int k = PApplet.parseInt(key);
+	k = k - 47;
 
-	for (int i=0; i < players.size(); i++ ) {
-		AudioPlayer p = players.get(i);
-		if (p.isPlaying()){
-			p.pause();
-			p.rewind();
-		}
-	}
+	println("k: "+ (k - 1));
 
-	AudioPlayer playNow = players.get(k-1);
-	playNow.loop();
+
+	// for (int i=0; i < players.size(); i++ ) {
+	// 	AudioPlayer p = players.get(i);
+	// 	if (p.isPlaying()){
+	// 		p.pause();
+	// 		p.rewind();
+	// 	}
+	// }
+
+	// AudioPlayer playNow = players.get(k-1);
+	// playNow.loop();
  
 }
   static public void main(String[] passedArgs) {
