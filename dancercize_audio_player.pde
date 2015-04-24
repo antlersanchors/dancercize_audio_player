@@ -2,8 +2,8 @@ import ddf.minim.*;
 import ddf.minim.ugens.*;
 
 Minim minim;
+AudioOutput out;
 SoundWarper soundWarp;
-BitCrush bitCrush;
 
 AudioPlayer waltz;
 AudioPlayer rumba;
@@ -32,11 +32,46 @@ class SoundWarper implements AudioListener {
     left = sampL;
     right = sampR;
   }
+
+  
+};
+
+class CrushThing implements Instrument {
+	BitCrush bitCrush;
+	Oscil sineOsc;
+
+	CrushThing() {
+		float hiBitRes = 4;
+		float crushSampleRate = 512;
+
+	  	bitCrush = new BitCrush(hiBitRes, crushSampleRate);
+	}
+
+	void crush(){
+
+		sineOsc = new Oscil(soundWarp.left.length, 1.0, Waves.SINE);
+		sineOsc.patch(bitCrush);
+	
+	}
+
+	 // every instrument must have a noteOn( float ) method
+  void noteOn(float dur)
+  {
+    bitCrush.patch(out);
+  }
+  
+  // every instrument must have a noteOff() method
+  void noteOff()
+  {
+    bitCrush.unpatch(out);
+  }
 };
 
 void setup() {
   minim = new Minim(this);
   soundWarp = new SoundWarper();
+
+  out = minim.getLineOut( Minim.MONO );
 
   waltz = minim.loadFile("waltz.mp3", 2048);
   rumba = minim.loadFile("rumba.mp3", 2048);

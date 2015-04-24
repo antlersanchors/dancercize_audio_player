@@ -21,6 +21,7 @@ public class dancercize_audio_player extends PApplet {
 
 
 Minim minim;
+AudioOutput out;
 SoundWarper soundWarp;
 
 AudioPlayer waltz;
@@ -50,11 +51,46 @@ class SoundWarper implements AudioListener {
     left = sampL;
     right = sampR;
   }
+
+  
+};
+
+class CrushThing implements Instrument {
+	BitCrush bitCrush;
+	Oscil sineOsc;
+
+	CrushThing() {
+		float hiBitRes = 4;
+		float crushSampleRate = 512;
+
+	  	bitCrush = new BitCrush(hiBitRes, crushSampleRate);
+	}
+
+	public void crush(){
+
+		sineOsc = new Oscil(soundWarp.left.length, 1.0f, Waves.SINE);
+		sineOsc.patch(bitCrush);
+	
+	}
+
+	 // every instrument must have a noteOn( float ) method
+  public void noteOn(float dur)
+  {
+    bitCrush.patch(out);
+  }
+  
+  // every instrument must have a noteOff() method
+  public void noteOff()
+  {
+    bitCrush.unpatch(out);
+  }
 };
 
 public void setup() {
   minim = new Minim(this);
   soundWarp = new SoundWarper();
+
+  out = minim.getLineOut( Minim.MONO );
 
   waltz = minim.loadFile("waltz.mp3", 2048);
   rumba = minim.loadFile("rumba.mp3", 2048);
