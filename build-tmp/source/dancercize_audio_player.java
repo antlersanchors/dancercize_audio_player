@@ -17,14 +17,26 @@ import java.io.IOException;
 public class dancercize_audio_player extends PApplet {
 
 
+// import ddf.minim.ugens.*;
+
 Minim minim;
+
+// ArrayList<AudioPlayer> players = new ArrayList<AudioPlayer>();
+
 AudioPlayer waltz;
 AudioPlayer rumba;
 AudioPlayer samba;
 AudioPlayer swing;
 
+
 public void setup() {
   minim = new Minim(this);
+
+  // players.add(waltz);
+  // players.add(rumba);
+  // players.add(samba);
+  // players.add(swing);
+
   waltz = minim.loadFile("waltz.mp3", 2048);
   rumba = minim.loadFile("rumba.mp3", 2048);
   samba = minim.loadFile("samba.mp3", 2048);
@@ -34,27 +46,29 @@ public void setup() {
 
 public void draw() {
 	size(512, 512);
+
+	// println(players.size());
 	
 }
 
 public void keyPressed() {
-	if (key == '1'){
-		minim.stop();
-		waltz.play();
-	}
+	int k = PApplet.parseInt(key);
+	k = k - 47;
 
-	if (key == '2'){
-		minim.stop();
-		rumba.play();
-	}
+	println("k: "+ (k - 1));
 
-	if (key == '3'){
-		samba.play();
-	}
 
-	if (key == '4'){
-		swing.play();
-	}
+	// for (int i=0; i < players.size(); i++ ) {
+	// 	AudioPlayer p = players.get(i);
+	// 	if (p.isPlaying()){
+	// 		p.pause();
+	// 		p.rewind();
+	// 	}
+	// }
+
+	// AudioPlayer playNow = players.get(k-1);
+	// playNow.loop();
+ 
 }
   static public void main(String[] passedArgs) {
     String[] appletArgs = new String[] { "dancercize_audio_player" };
