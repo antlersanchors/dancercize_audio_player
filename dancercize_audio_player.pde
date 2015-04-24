@@ -6,6 +6,7 @@ AudioPlayer samba;
 AudioPlayer swing;
 
 void setup() {
+size(800, 800);
   minim = new Minim(this);
   waltz = minim.loadFile("waltz.mp3", 2048);
   rumba = minim.loadFile("rumba.mp3", 2048);
@@ -15,18 +16,21 @@ void setup() {
 }
 
 void draw() {
-	size(512, 512);
+	
 	
 }
 
 void keyPressed() {
+	waltz.pause();
+	rumba.pause();
+	samba.pause();
+	swing.pause();
+
 	if (key == '1'){
-		
 		waltz.loop();
 	}
 
 	if (key == '2'){
-		minim.stop();
 		rumba.loop();
 	}
 

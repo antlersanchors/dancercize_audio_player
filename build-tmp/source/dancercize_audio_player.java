@@ -38,22 +38,25 @@ public void draw() {
 }
 
 public void keyPressed() {
+	waltz.pause();
+	rumba.pause();
+	samba.pause();
+	swing.pause();
+
 	if (key == '1'){
-		minim.stop();
-		waltz.play();
+		waltz.loop();
 	}
 
 	if (key == '2'){
-		minim.stop();
-		rumba.play();
+		rumba.loop();
 	}
 
 	if (key == '3'){
-		samba.play();
+		samba.loop();
 	}
 
 	if (key == '4'){
-		swing.play();
+		swing.loop();
 	}
 }
   static public void main(String[] passedArgs) {
