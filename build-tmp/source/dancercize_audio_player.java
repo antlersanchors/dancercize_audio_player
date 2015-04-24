@@ -27,6 +27,8 @@ AudioPlayer rumba;
 AudioPlayer samba;
 AudioPlayer swing;
 
+AudioPlayer player;
+
 public void setup() {
   minim = new Minim(this);
 
@@ -44,22 +46,23 @@ public void draw() {
 
 public void keyPressed() {
 
-	player.close();
-	minim.stop();
-	super.stop();
+	waltz.pause();
+	rumba.pause();
+	samba.pause();
+	swing.pause();
 
 	if (key == '1') {
 		
 		waltz.loop();
 	}
 	if (key == '2') {
-		rumba.play();
+		rumba.loop();
 	}
 	if (key == '3') {
-		samba.play();
+		samba.loop();
 	}
 	if (key == '4') {
-		swing.play();
+		swing.loop();
 	}
 }
   static public void main(String[] passedArgs) {
