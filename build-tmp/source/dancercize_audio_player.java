@@ -4,6 +4,7 @@ import processing.event.*;
 import processing.opengl.*; 
 
 import ddf.minim.*; 
+import ddf.minim.ugens.*; 
 
 import java.util.HashMap; 
 import java.util.ArrayList; 
@@ -17,7 +18,10 @@ import java.io.IOException;
 public class dancercize_audio_player extends PApplet {
 
 
+
+
 Minim minim;
+
 AudioPlayer waltz;
 AudioPlayer rumba;
 AudioPlayer samba;
@@ -25,6 +29,7 @@ AudioPlayer swing;
 
 public void setup() {
   minim = new Minim(this);
+
   waltz = minim.loadFile("waltz.mp3", 2048);
   rumba = minim.loadFile("rumba.mp3", 2048);
   samba = minim.loadFile("samba.mp3", 2048);
@@ -34,25 +39,27 @@ public void setup() {
 
 public void draw() {
 	size(512, 512);
-	
+
 }
 
 public void keyPressed() {
-	if (key == '1'){
-		minim.stop();
+	int k = key;
+
+	// player.close();
+	// minim.stop();
+	// super.stop();
+
+	if (key == 1) {
+		
 		waltz.play();
 	}
-
-	if (key == '2'){
-		minim.stop();
+	if (key == 2) {
 		rumba.play();
 	}
-
-	if (key == '3'){
+	if (key == 3) {
 		samba.play();
 	}
-
-	if (key == '4'){
+	if (key == 4) {
 		swing.play();
 	}
 }
