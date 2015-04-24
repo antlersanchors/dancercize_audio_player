@@ -3,13 +3,21 @@ import ddf.minim.ugens.*;
 
 Minim minim;
 
+ArrayList<AudioPlayer> players = new ArrayList<AudioPlayer>();
+
 AudioPlayer waltz;
 AudioPlayer rumba;
 AudioPlayer samba;
 AudioPlayer swing;
 
+
 void setup() {
   minim = new Minim(this);
+
+  players.add(waltz);
+  players.add(rumba);
+  players.add(samba);
+  players.add(swing);
 
   waltz = minim.loadFile("waltz.mp3", 2048);
   rumba = minim.loadFile("rumba.mp3", 2048);
@@ -21,25 +29,22 @@ void setup() {
 void draw() {
 	size(512, 512);
 
+	println(players.size());
+	
 }
 
 void keyPressed() {
+	int k = key;
 
-	// player.close();
-	// minim.stop();
-	// super.stop();
+	for (int i=0; i < players.size(); i++ ) {
+		AudioPlayer p = players.get(i);
+		if (p.isPlaying()){
+			p.pause();
+			p.rewind();
+		}
+	}
 
-	if (key == '1') {
-		
-		waltz.loop();
-	}
-	if (key == '2') {
-		rumba.play();
-	}
-	if (key == '3') {
-		samba.play();
-	}
-	if (key == '4') {
-		swing.play();
-	}
+	AudioPlayer playNow = players.get(k-1);
+	playNow.loop();
+ 
 }
